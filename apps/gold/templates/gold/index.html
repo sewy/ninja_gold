@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ninja GOld!!</title>
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'gold/style.css' %}">
+</head>
+<body>
+	<div id="container">
+		<h2>Your gold:{{ request.session.gold }}</h2>
+		<div class="box">
+			<h2>Farm</h2>
+			<span>(earns 10-20 golds)</span>
+			<form action="/process_money" method="post">
+			{% csrf_token %}
+    			<input type="hidden" name="building" value="farm" />
+    			<input type="submit" value="Find Gold!"/>
+  			</form>
+		</div>
+		<div class="box">
+			<h2>Cave</h2>
+			<span>(earns 5-10 golds)</span>
+			<form action="/process_money" method="post">
+			{% csrf_token %}
+    			<input type="hidden" name="building" value="cave" />
+    			<input type="submit" value="Find Gold!"/>
+  			</form>
+		</div>
+		<div class="box">
+			<h2>House</h2>
+			<span>(earns 2-5 golds)</span>
+			<form action="/process_money" method="post">
+			{% csrf_token %}
+    			<input type="hidden" name="building" value="house" />
+    			<input type="submit" value="Find Gold!"/>
+  			</form>
+		</div>
+		<div class="box">
+			<h2>Casino</h2>
+			<span>(earn or lose 1-50 golds)</span>
+			<form action="/process_money" method="post">
+			{% csrf_token %}
+    			<input type="hidden" name="building" value="casino" />
+    			<input type="submit" value="Find Gold!"/>
+  			</form>
+		</div>
+		<div id="activity">
+			{% for i in request.session.activity %}
+			<p>{{ i }}</p>
+			{% endfor %}
+		</div>
+		<form action='/reset' method='post'>
+		{% csrf_token %}
+			<input type="submit" value="Reset Gold">
+		</form>
+	</div>
+</body>
+</html>
